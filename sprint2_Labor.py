@@ -53,16 +53,32 @@ sns.scatterplot(x=standby_pay, y=duration, hue=classe, data=x)
 #plt.show()
 
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+#ajustando dados
+
+#alterando tipo de y: Series para DataFrame
+y_DF = pd.DataFrame(y)
+#print(y_DF)
+#criando dados somente com as colunas desejadas
+dados = x[["duration", "standby-pay"]]
+#print(dados)
+#unindo y_DF com dados
+dados['class'] = y_DF
+#print(dados)
+#excluindo "standby-pay" = NaN
+dados = dados.dropna()
+print(dados)
+
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 #começando treino
 
-#separando dados x e y
-raw_dados_x = x[["duration", "standby-pay"]]
-# print(raw_dados_x)
-raw_dados_y = pd.DataFrame(y) #transformando y de Series para DataFrame
-# print(raw_dados_y)
+# #separando dados x e y
+# raw_dados_x = x[["duration", "standby-pay"]]
+# # print(raw_dados_x)
+# raw_dados_y = pd.DataFrame(y) #transformando y de Series para DataFrame
+# # print(raw_dados_y)
 
-raw_dados_x['class'] = raw_dados_y
-print(raw_dados_x)
+# raw_dados_x['class'] = raw_dados_y
+# #print(raw_dados_x)
 
 # #verificando tipos de dados raw_dados_x/raw_dados_y
 # print(type(raw_dados_x))
