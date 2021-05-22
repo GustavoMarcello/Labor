@@ -3,7 +3,6 @@
 #plota um grafico com os dados já tratados, depois treina esses dados e armazena os resultados no MongoDB
 
 import numpy as np
-from pandas.core.algorithms import mode
 import pymongo
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
@@ -59,10 +58,10 @@ y = dados["class"]
 SEED = 5
 np.random.seed(SEED)
 
+#algorítimo de treino
 treino_x, teste_x, treino_y, teste_y = train_test_split(
     x, y, test_size=0.3, stratify=y)
-print(
-    f'Treinaremos com {len(treino_x)} e testaremos com {len(teste_x)} elementos')
+print(f'Treinaremos com {len(treino_x)} e testaremos com {len(teste_x)} elementos')
 
 # #rodando e treinando o modelo
 modelo = LinearSVC()
@@ -70,6 +69,7 @@ modelo.fit(treino_x, treino_y.values.ravel())  # convertendo para uma dimensão
 previsoes = modelo.predict(teste_x)
 acuracia = accuracy_score(teste_y, previsoes) * 100
 print(f'A acurácia foi de {acuracia:.2f} %')
+
 
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 #inserindo valores no banco
@@ -85,6 +85,5 @@ mycol.insert_one(dic)
 #visualizando os valores
 for x in mycol.find():
     print(x)
-print('')
 
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
